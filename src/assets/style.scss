@@ -1,0 +1,46 @@
+
+* {
+    box-sizing: border-box;
+}
+
+p, h1, h2, h3, h4, h5, h6, li, body {
+    margin: 0;
+    padding: 0;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+li {
+    display: inline-block;
+    // margin: 0 15px;
+    list-style: none;
+    direction: rtl;
+    font-size: 18px;
+}
+
+// --------------helpers----------------
+
+.row {
+    display: flex
+}
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.bold {
+    font-weight: bold;
+}
+.btn {
+    margin: 5px;
+    cursor: pointer; 
+    border: 1px solid;
+    width: 32px;
+    min-height: 32px;
+    border-radius: 3px;
+}
+.btn:hover {
+    
+}
