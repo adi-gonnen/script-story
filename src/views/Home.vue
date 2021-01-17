@@ -16,7 +16,10 @@ export default {
   computed: {
     index() {
       return this.$store.getters.getIndex;
-    }
+    },
+    //  simple() {
+    //   return this.$store.state.simple
+    // }
   },
   mounted() {
     if (!this.index[0]) {

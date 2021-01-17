@@ -11,7 +11,8 @@ export default new Vuex.Store({
     index: [],
     story: '',
     hiddenStory: [],
-    sortedLetters: []
+    sortedLetters: [],
+    simple: true
   },
   getters: {
     getLetters(state) {
@@ -64,10 +65,13 @@ export default new Vuex.Store({
       const index = state.index;
       let hidenStory = [];
       story.forEach((line) => {
-        let newLine = '';
+        let newLine = [];
         [...line].forEach((letter) => {
-          let signObj = index.find(item => item.letter === letter);
-          newLine += signObj ? signObj.sign : ''; 
+          const signObj = index.find(item => item.letter === letter);
+          // const option = state.simple ? letter : '';   //keep non-letter sign (?,.exc) or delete 
+          const signIcon = signObj ? signObj.sign : letter;
+          const letterClass = !signObj ? 'special' : signIcon === ' ' ? 'space' : 'letter'
+          newLine.push({letter: signIcon, class: letterClass});  
         })
         hidenStory.push(newLine)
       });
@@ -90,7 +94,7 @@ export default new Vuex.Store({
           index.push({ letter: letter, sign: signs[j], count: '' });
         }
       }
-      index.push({ "letter": " ", "sign": "___" })    //  space between words
+      index.push({ letter: " ", sign: " " })    //  space between words
       commit('setIndex', index)
     },
     

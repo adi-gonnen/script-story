@@ -24,8 +24,6 @@
 export default {
   name: 'Icons',
   data: ()=> ({
-    f1: 1000,
-    f2: 2000
   }),
   computed: {
     index() {
@@ -36,7 +34,7 @@ export default {
     },
     intN() {
       return this.searchNum()
-    }
+    },
   },
   methods: {
     letterToPrint(letter) {

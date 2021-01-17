@@ -19,6 +19,9 @@ export default {
   computed: {
     story() {
       return this.$store.getters.getStory;
+    },
+     simple() {
+      return this.$store.state.simple;
     }
   },
   mounted() {
@@ -30,10 +33,11 @@ export default {
   methods: {
     criptText() {
       this.$store.dispatch("setCriptText", this.text);
-      this.$router.push("/cript");
+      const target = this.simple ? '/simple' : '/cript';
+      this.$router.push(target);
     },
     printIndex() {
-      this.$router.push("/icons");
+      this.$router.push('/icons');
     }
   }
 };
