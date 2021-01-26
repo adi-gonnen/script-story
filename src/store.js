@@ -76,9 +76,7 @@ export default new Vuex.Store({
       index.forEach((obj) => {
         let count = story.reduce((acc, line) => {
           [...line].forEach((letter) => {
-            console.log('letter: ', letter.sign, 'sign: ', obj.sign)
             if (obj.sign === letter.sign) {
-              console.log('find: ')
               acc++;
             }
           })

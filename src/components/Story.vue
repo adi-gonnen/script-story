@@ -3,10 +3,23 @@
     <ul class="story-container column">
       <li v-for="(line, idx) in story" :key="idx" class="story-line column">
         <div class="empty-line row">
-          <p v-for="(letter, index) in line" :key="index" :class="letter.class">{{letter.sign}}</p>
+          <div 
+            v-for="(letter, index) in line" 
+            :key="index" 
+            :class="letter.class" 
+            class="helper-container"
+          >
+          <p v-if="letter.class == 'letter'" class="line-helper">__</p>
+          <p v-else-if="letter.class === 'special'" class="special-sign">{{letter.sign}}</p>
+        </div>
         </div>
         <div class="symbol-line row">
-          <p v-for="(letter, index) in line" :key="index" :class="letter.class">{{letter.sign}}</p>
+          <i 
+            v-for="(letter, index) in line" 
+            :key="index" 
+            :class="[letter.class, `em-${letter.sign}`]" 
+            class="em">
+          </i>
         </div>
       </li>
     </ul>
@@ -43,16 +56,29 @@ export default {
 .space {
   margin: 0 10px;
 }
-.empty-line .letter {
- text-decoration: underline;
- color: transparent;
- text-decoration-color: black;
+.helper-container {
+  min-width: 27px;
+  &.letter {
+    margin-bottom: 2px;
+  }
+}
+.line-helper {
+  text-decoration: underline;
+  color: white;
+  -webkit-text-decoration-color: black;
+  text-decoration-color: black;
+  min-width: 27px;
+  // max-height: 1px;
+  // font-size: 8px;
+}
+.special-sign {
+
 }
 .symbol-line .special {
   color: transparent;
 }
 .letter {
-  padding: 0 1px;
+  margin: 0 2px;
 }
 
 </style>

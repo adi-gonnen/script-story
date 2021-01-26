@@ -20,7 +20,11 @@ export default {
       hiddenStory: state => state.hiddenStory
     })
   },
-
+  mounted() {
+    if (!this.hiddenStory) {
+      window.history.back()
+    }
+  },
   methods: {
     printStory() {
       // var doc = new jsPDF();

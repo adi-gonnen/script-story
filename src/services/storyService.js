@@ -1,6 +1,6 @@
 
 const letters = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י', 'כ', 'ך', 'ל', 'מ', 'ם', 'נ', 'ן', 'ס', 'ע', 'פ', 'ף', 'צ', 'ץ', 'ק', 'ר', 'ש', 'ת']
-const signs = ['💩', '🐴', '🐬', '🍒', '🐸', '💀', '🔑', '🙉', '🌷', '🍌', '🌽', '💜', '🥕', '🚲', '🍉', '🍭', '🌎', '🌴', '🚀', '⛔', '🌈', '🦄']
+const signs = ['hankey', 'cat', 'bike', 'beetle', 'avocado', 'skull', 'dolphin', 'vertical_traffic_light', 'hearts', 'basketball', 'cactus', 'hot_pepper', 'icecream', 'lemon', 'lizard', 'monkey_face', 'hiking_boot', 'sauropod', 'rocket', 'scooter', 'rainbow', 'unicorn_face']
 const sortedLetters = ['י', 'ו', 'ה', 'מ', 'ר', 'ל', 'ת', 'ב', 'נ', 'א', 'ש', 'ע', 'ד', 'ק', 'פ', 'כ', 'ח', 'ס', 'ג', 'ט', 'צ', 'ז']
 
 function getLetters() {

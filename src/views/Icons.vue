@@ -3,7 +3,7 @@
     <ul v-if="index" class="signs-container column">
       <li v-for="(obj, idx) in index" :key="idx" class="sign column">
         <div v-if="!ignoreLetter(obj.letter)" class="sign-container row">
-          <div>{{obj.sign}}</div>
+           <i :class="`em-${obj.sign}`" class="em"></i>
           <div class="count">({{obj.count}})</div>
           <div>____</div>
         </div>
