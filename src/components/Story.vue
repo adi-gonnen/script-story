@@ -1,12 +1,12 @@
 <template>
-  <div v-if="hiddenStory" class="header-container">
+  <div v-if="story" class="header-container">
     <ul class="story-container column">
-      <li v-for="(line, idx) in hiddenStory" :key="idx" class="story-line column">
+      <li v-for="(line, idx) in story" :key="idx" class="story-line column">
         <div class="empty-line row">
-          <p v-for="(letter, index) in line" :key="index" :class="letter.class">{{letter.letter}}</p>
+          <p v-for="(letter, index) in line" :key="index" :class="letter.class">{{letter.sign}}</p>
         </div>
         <div class="symbol-line row">
-          <p v-for="(letter, index) in line" :key="index" :class="letter.class">{{letter.letter}}</p>
+          <p v-for="(letter, index) in line" :key="index" :class="letter.class">{{letter.sign}}</p>
         </div>
       </li>
     </ul>
@@ -16,11 +16,7 @@
 <script>
 export default {
   name: "Story",
-  computed: {
-    hiddenStory() {
-      return this.$store.getters.hiddenStory;
-    }
-  },
+  props: ['story'],
 };
 </script>
 

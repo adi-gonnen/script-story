@@ -1,47 +1,24 @@
 <template>
-  <div v-if="story" class="header-container">
-    <Story v-if="pageType === 'story'"/>
-    <Icons v-else/>
-    <!-- <div :class="print ? 'hide-btns' : ''" class="btns-container row">
-      <button
-        :disabled="pageType === 'story'"
-        class="story-btn"
-        @click="changePageType('story')"
-      >צופן</button>
-      <button
-        :disabled="pageType === 'index'"
-        class="story-btn"
-        @click="changePageType('index')"
-      >מקרא</button>
-      <button class="story-btn print-btn" @click="printStory">הדפס</button>
-      <button class="story-btn" @click="returnHomePage">חזור</button>
-    </div> -->
+  <div class="header-container">
+    <Story :story="hiddenStory"/>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Story from "@/components/Story.vue";
-// import Icons from "@/components/Icons.vue";
 import jsPDF from 'jspdf';
 export default {
   name: "Cript",
-  components: {
-    Story,
-    // Icons
-  },
-  data() {
-    return {
-      pageType: "story",
-      print: false
-    };
-  },
+  components: { Story },
+  data: () => ({
+    pageType: "story",
+    print: false
+  }),
   computed: {
-    story() {
-      return this.$store.getters.getStory;
-    },
-    hiddenStory() {
-      return this.$store.getters.hiddenStory;
-    }
+   ...mapState({
+      hiddenStory: state => state.hiddenStory
+    })
   },
 
   methods: {
@@ -56,13 +33,6 @@ export default {
       // doc.save("a4.pdf");
       this.print = true;
     },
-    changePageType(type) {
-      this.pageType = type;
-      this.print = false;
-    },
-    returnHomePage() {
-      window.history.back();
-    }
   }
 };
 </script>

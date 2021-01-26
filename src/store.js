@@ -6,47 +6,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    letters: [],
-    signs: [],
-    index: [],
+    dictionary: {},
+    index: null,
     story: '',
-    hiddenStory: [],
-    sortedLetters: [],
-    simple: true
+    hiddenStory: null
   },
+
   getters: {
-    getLetters(state) {
-      return state.letters;
-    },
-    getIndex(state) {
-      return state.index;
-    },
-    getStory(state) {
-      return state.story;
-    },
-    hiddenStory(state) {
-      return state.hiddenStory;
-    },
-    getSortedLetters(state) {
-      return state.sortedLetters;
+    soretedLetters(state) {
+      return state.dictionary.sortedLetters;
     }
   },
-  mutations: {
-    setSigns(state, data) {
-      state.letters = data.letters;
-      state.signs = data.signs;
-      state.sortedLetters = data.sortedLetters;
-    },
-    setIndex(state, index) {
-      state.index = index;
-    },
-    setStory(state, story) {
-      state.story = story;
-    },
-    setHiddenStory(state, story) {
-      state.hiddenStory = story
-    },
-  },
+  
   actions: {
     async loadSigns({ commit, dispatch }) {
       const letters = storyService.getLetters();
@@ -55,55 +26,59 @@ export default new Vuex.Store({
       commit('setSigns', { letters, signs, sortedLetters });
       await dispatch('getIndex');
     },
-    async setCriptText({commit, dispatch}, text) {
-      commit('setStory', text);
-      let textLines = text.split("\n");
-      const hiddenStory = await dispatch('hideStory', textLines);
-      commit('setHiddenStory', hiddenStory);
-    },
-    async hideStory({ state, dispatch }, story) {
-      const index = state.index;
-      let hidenStory = [];
-      story.forEach((line) => {
-        let newLine = [];
-        [...line].forEach((letter) => {
-          const signObj = index.find(item => item.letter === letter);
-          // const option = state.simple ? letter : '';   //keep non-letter sign (?,.exc) or delete 
-          const signIcon = signObj ? signObj.sign : letter;
-          const letterClass = !signObj ? 'special' : signIcon === ' ' ? 'space' : 'letter'
-          newLine.push({letter: signIcon, class: letterClass});  
-        })
-        hidenStory.push(newLine)
-      });
-      await dispatch('sortIndex', hidenStory);
-      return hidenStory;
-    },
+    
     async getIndex({ state, commit }) {
       let index = [];
-      const letters = state.letters;
-      const signs = state.signs;
+      const letters = state.dictionary.letters;
+      const signs = state.dictionary.signs;
       for (let i = 0, j = 0; i < letters.length; i++ , j++) {
         let letter = letters[i];
         let endLetter = ['ך', 'ם', 'ן', 'ף', 'ץ'].some((each) => {
           return each === letter;
         })
         if (endLetter) {
-          index.push({ letter: letter, sign: signs[j-1], count: '' });
+          index.push({ letter: letter, sign: signs[j-1], count: 0 });
           j--;
         } else {
-          index.push({ letter: letter, sign: signs[j], count: '' });
+          index.push({ letter: letter, sign: signs[j], count: 0 });
         }
       }
       index.push({ letter: " ", sign: " " })    //  space between words
       commit('setIndex', index)
     },
-    
+
+    async setCriptText({commit, dispatch}, text) {
+      commit('setStory', text);
+      let textLines = text.split("\n");
+      const hiddenStory = await dispatch('hideStory', textLines);
+      commit('setHiddenStory', hiddenStory);
+    },
+
+    async hideStory({ state, dispatch }, story) {
+      const index = state.index;
+      let hiddenStory = [];
+      story.forEach((line) => {
+        let newLine = [];
+        [...line].forEach((letter) => {
+          const signObj = index.find(item => item.letter === letter);
+          const signIcon = signObj ? signObj.sign : letter;
+          const letterClass = !signObj ? 'special' : signIcon === ' ' ? 'space' : 'letter'
+          newLine.push({sign: signIcon, class: letterClass});  
+        })
+        hiddenStory.push(newLine)
+      });
+      await dispatch('sortIndex', hiddenStory);
+      return hiddenStory;
+    },
+
     sortIndex({state, commit}, story) {
       const index = Array.from(state.index);
       index.forEach((obj) => {
         let count = story.reduce((acc, line) => {
           [...line].forEach((letter) => {
-            if (obj.sign === letter) {
+            console.log('letter: ', letter.sign, 'sign: ', obj.sign)
+            if (obj.sign === letter.sign) {
+              console.log('find: ')
               acc++;
             }
           })
@@ -116,5 +91,20 @@ export default new Vuex.Store({
       })
       commit('setIndex', index);
     },
-  }
+  },
+
+  mutations: {
+    setSigns(state, data) {
+      state.dictionary = data;
+    },
+    setIndex(state, index) {
+      state.index = index;
+    },
+    setStory(state, story) {
+      state.story = story;
+    },
+    setHiddenStory(state, story) {
+      state.hiddenStory = story
+    },
+  },
 })

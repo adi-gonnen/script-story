@@ -2,7 +2,7 @@
   <div class="header-container row">
     <ul v-if="index" class="signs-container column">
       <li v-for="(obj, idx) in index" :key="idx" class="sign column">
-        <div v-if="letterToPrint(obj.letter)" class="sign-container row">
+        <div v-if="!ignoreLetter(obj.letter)" class="sign-container row">
           <div>{{obj.sign}}</div>
           <div class="count">({{obj.count}})</div>
           <div>____</div>
@@ -21,26 +21,25 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 export default {
   name: 'Icons',
-  data: ()=> ({
-  }),
+  data: ()=> ({}),
   computed: {
-    index() {
-      return this.$store.getters.getIndex;
-    }, 
-    letters() {
-      return this.$store.getters.getSortedLetters;
-    },
-    intN() {
-      return this.searchNum()
-    },
+   ...mapState({
+      index: state => state.index
+    }),
+    ...mapGetters({
+      letters: 'soretedLetters'
+    }),
+    ignoreLetter() {
+      return letter => {
+        return [' ', 'ך', 'ם', 'ן', 'ף', 'ץ'].some(x => x === letter)
+      }
+    }
   },
-  methods: {
-    letterToPrint(letter) {
-      return ![' ', 'ך', 'ם', 'ן', 'ף', 'ץ'].some(x => x === letter)
-    },
-  }
+  methods: {}
 }
 </script>
 

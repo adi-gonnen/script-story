@@ -1,28 +1,25 @@
 <template>
   <div class="home">
-    <Insert/>
-    <!-- <button class="submit-btn" @click="setSigns">הכן מקרא</button> -->
-    <!-- <Rules/> -->
+    <Insert :story="story" :hidden-story="hiddenStory"/>
   </div>
 </template>
 
 <script>
-import Rules from "@/components/Rules.vue";
+import { mapState } from 'vuex'
 import Insert from "@/components/Insert.vue";
 
 export default {
   name: "home",
-  components: { Rules, Insert },
+  components: { Insert },
   computed: {
-    index() {
-      return this.$store.getters.getIndex;
-    },
-    //  simple() {
-    //   return this.$store.state.simple
-    // }
+    ...mapState({
+      index: state => state.index,
+      story: state => state.story,
+      hiddenStory: state => state.hiddenStory
+    })
   },
   mounted() {
-    if (!this.index[0]) {
+    if (!this.index) {
       this.$store.dispatch("loadSigns");
     }
   }
