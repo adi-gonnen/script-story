@@ -3,7 +3,7 @@
     <ul v-if="index" class="signs-container column">
       <li v-for="(obj, idx) in index" :key="idx" class="sign column">
         <div v-if="!ignoreLetter(obj.letter)" class="sign-container row">
-           <i :class="`em-${obj.sign}`" class="em"></i>
+           <i :class="`em-${obj.sign}`" class="sign-icon em"></i>
           <div class="count">({{obj.count}})</div>
           <div>____</div>
         </div>
@@ -47,23 +47,24 @@ export default {
 @import "@/assets/style.scss";
 @media print { body { -webkit-print-color-adjust: exact; } }
 .header-container {
-  margin: 20px 0;
   direction: rtl;
   justify-content: space-around;
-  // transform: rotate(90deg);
 }
 .signs-container {
-    max-height: 885px;
-    flex-wrap: wrap;
+  max-height: 750px;
+  flex-wrap: wrap;
 }
 .sign {
-    max-width: 80px;
-    margin-left: 100px;
+  max-width: 80px;
+  margin-left: 100px;
 }
 .sign-container {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   margin-right: 20px;
   z-index: 5;
+}
+.sign-icon {
+  min-width: 27px;
 }
 .count {
   margin: 0 10px;
