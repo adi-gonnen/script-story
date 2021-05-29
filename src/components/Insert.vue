@@ -6,6 +6,7 @@
       <router-link to="/cript" tag="button" class="insert-btn" >הדפס כתב סתרים</router-link>
       <router-link to="/icons" tag="button" class="insert-btn" >הדפס מקרא</router-link>
       <router-link to="/rules" tag="button" class="insert-btn" >הדפס כללים</router-link>
+      <router-link to="/simple" tag="button" class="insert-btn" >צופן עם מקרא</router-link>
       <button class="insert-btn" @click="criptText">הצפן מחדש</button>
     </div>
     <button v-else class="insert-btn submit-btn" @click="criptText">הצפן!</button>
@@ -37,7 +38,7 @@ export default {
 <style>
 .insert-container {
   direction: rtl;
-  max-width: 790px;
+  max-width: 80%;
   margin: auto;
 }
 .insert-title {

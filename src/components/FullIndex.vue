@@ -1,9 +1,11 @@
 <template>
   <div class="header-container row">
     <ul v-if="index" class="signs-container row">
-      <li v-for="(obj, idx) in index" :key="idx" class="sign">
-        <div v-if="letterToPrint(obj.letter)" class="sign-container row">
-          <span>{{obj.sign}}</span>&nbsp;=&nbsp; <span>{{obj.letter}}</span>
+      <li v-for="(obj, idx) in sortedIndex" :key="idx" class="sign">
+        <div class="sign-container row">
+          <i :class="`em-${obj.sign}`" class="sign-icon em"></i>
+          &nbsp;=&nbsp; 
+          <span>{{obj.letter}}</span>
         </div>
       </li>
     </ul>
@@ -13,12 +15,14 @@
 <script>
 export default {
   name: 'Index',
-  data: ()=> ({
-  }),
+  props: ['index'],
+  data: ()=> ({}),
   computed: {
-    index() {
-      return this.$store.getters.getIndex;
-    }, 
+    sortedIndex() {
+      const ignoreLetters = [' ', 'ך', 'ם', 'ן', 'ף', 'ץ'];
+      const letters = new Set(ignoreLetters);
+      return [...new Set(this.index.filter(obj => !letters.has(obj.letter)))]
+    }
   },
   methods: {
     letterToPrint(letter) {
@@ -39,11 +43,15 @@ export default {
     flex-wrap: wrap;
 }
 .sign {
-    margin-left: 20px;
+  max-width: 80px;
+  margin-left: 100px;
 }
 .sign-container {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   margin-right: 20px;
   z-index: 5;
+}
+.sign-icon {
+  min-width: 27px;
 }
 </style>
