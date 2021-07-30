@@ -5,6 +5,7 @@ import Cript from './views/Cript.vue'
 import Icons from './views/Icons.vue'
 import Rules from './views/Rules.vue'
 import Simple from './views/Simple.vue'
+import Play from './views/Play.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/simple',
       name: 'simple',
       component: Simple
+    },
+    {
+      path: '/play',
+      name: 'play',
+      component: Play
     },
   ]
 })
